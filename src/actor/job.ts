@@ -1,4 +1,4 @@
-import { research } from "../core/index.js";
+import { renderReport, research } from "../core/index.js";
 import { ResearchInputSchema, type Deps, type ResearchPack } from "../core/types.js";
 
 /** Billable events. Define them (names must match) under Monetization in Apify Console. */
@@ -11,6 +11,8 @@ export interface ActorIO {
   pushPack(pack: ResearchPack): Promise<void>;
   /** Stores a result that should not be billed (for example when every source failed). */
   saveOutput(pack: ResearchPack): Promise<void>;
+  /** Stores the readable markdown report next to the dataset. Not billed; failures must not fail the run. */
+  saveReport(markdown: string): Promise<void>;
   charge(eventName: string, count: number): Promise<void>;
   /** How many more events of this type the user's spending limit allows. Infinity when unlimited. */
   maxCharges(eventName: string): number;
@@ -72,6 +74,7 @@ export async function runActorJob(rawInput: unknown, deps: Deps, io: ActorIO): P
   }
 
   await io.pushPack(pack);
+  await io.saveReport(renderReport(pack));
   await io.charge(EVENT_RESEARCH_PACK, 1);
   if (pack.pages.length > 0) await io.charge(EVENT_PAGE_MARKDOWN, pack.pages.length);
 

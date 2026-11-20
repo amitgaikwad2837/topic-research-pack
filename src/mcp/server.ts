@@ -1,7 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { fetchPageMarkdown } from "../core/content/extract.js";
-import { research } from "../core/index.js";
+import { renderReport, research } from "../core/index.js";
 import { runResearch } from "../core/research.js";
 import { duckDuckGoSuggestSource } from "../core/sources/ddg.js";
 import { wikipediaSource } from "../core/sources/wikipedia.js";
@@ -104,6 +104,38 @@ export function createMcpServer(deps: Deps, options: McpOptions = DEFAULT_MCP_OP
           deps,
         );
         return ok(pack);
+      } catch (err) {
+        return fail(err);
+      }
+    },
+  );
+
+  server.registerTool(
+    "research_report",
+    {
+      title: "Research a topic as a cited report",
+      description:
+        "Same research as research_topic, but returns a ready-to-read markdown brief: overview, signals, " +
+        "news, papers and code, keyword ideas and page excerpts, with numbered citations and retrieval " +
+        "dates. Use it when you want to read or quote the result rather than process it. Sources that fail " +
+        "are listed under Limitations.",
+      inputSchema: researchTopicInput,
+      outputSchema: { markdown: z.string() },
+      annotations: { title: "Research a topic as a cited report", ...READ_ONLY_OPEN_WORLD },
+    },
+    async (args) => {
+      try {
+        const pack = await research(
+          {
+            ...args,
+            respectRobotsTxt: options.respectRobotsTxt,
+            enableGoogleSources: options.enableGoogleSources,
+            enableGdelt: options.enableGdelt,
+          },
+          deps,
+        );
+        const markdown = renderReport(pack);
+        return { content: [{ type: "text" as const, text: markdown }], structuredContent: { markdown } };
       } catch (err) {
         return fail(err);
       }

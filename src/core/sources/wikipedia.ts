@@ -1,6 +1,6 @@
 import { z } from "zod";
 import type { SourceAdapter } from "../research.js";
-import type { KeywordIdea, SourceError, TrendSignal } from "../types.js";
+import type { KeywordIdea, Overview, SourceError, TrendSignal } from "../types.js";
 import { safeGet } from "../util/http.js";
 
 export const WIKI_SOURCE = "wikipedia";
@@ -60,6 +60,37 @@ export function pageviewSignals(json: unknown, title: string): TrendSignal[] {
   return signals;
 }
 
+/** Verified against a live response (test/fixtures/wiki-summary.json). */
+const SummarySchema = z.object({
+  type: z.string(),
+  title: z.string(),
+  description: z.string().nullish(),
+  extract: z.string().nullish(),
+  content_urls: z.object({ desktop: z.object({ page: z.string() }) }).optional(),
+});
+
+export function buildSummaryUrl(title: string): string {
+  return `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title.replaceAll(" ", "_"))}`;
+}
+
+/**
+ * The overview of the best-matching article. Disambiguation pages ("Mercury") and empty extracts
+ * describe nothing useful, so they give no overview.
+ */
+export function parseSummary(json: unknown): Overview | undefined {
+  const s = SummarySchema.parse(json);
+  const summary = s.extract?.trim();
+  if (s.type === "disambiguation" || !summary) return undefined;
+  const url = s.content_urls?.desktop.page ?? `https://en.wikipedia.org/wiki/${encodeURIComponent(s.title.replaceAll(" ", "_"))}`;
+  return {
+    title: s.title,
+    summary,
+    url,
+    source: WIKI_SOURCE,
+    ...(s.description && { description: s.description }),
+  };
+}
+
 async function getJson(url: string, deps: Parameters<typeof safeGet>[2]): Promise<unknown> {
   const res = await safeGet(url, {}, deps);
   try {
@@ -77,16 +108,34 @@ export const wikipediaSource: SourceAdapter = {
     const errors: SourceError[] = [];
     let trends: TrendSignal[] = [];
 
+    let overview: Overview | undefined;
+
     const top = titles[0];
     if (top) {
-      try {
-        const json = await getJson(buildPageviewsUrl(top, Date.now()), deps);
-        trends = pageviewSignals(json, top);
-      } catch (err) {
-        // Search still succeeded, so keep it and report only the pageviews failure.
-        errors.push({ source: `${WIKI_SOURCE}-pageviews`, message: (err as Error).message });
+      // Search still succeeded, so a failure below is reported without losing the search results.
+      const [views, summary] = await Promise.allSettled([
+        getJson(buildPageviewsUrl(top, (deps.now?.() ?? new Date()).getTime()), deps),
+        getJson(buildSummaryUrl(top), deps),
+      ]);
+      if (views.status === "fulfilled") {
+        try {
+          trends = pageviewSignals(views.value, top);
+        } catch (err) {
+          errors.push({ source: `${WIKI_SOURCE}-pageviews`, message: (err as Error).message });
+        }
+      } else {
+        errors.push({ source: `${WIKI_SOURCE}-pageviews`, message: (views.reason as Error).message });
+      }
+      if (summary.status === "fulfilled") {
+        try {
+          overview = parseSummary(summary.value);
+        } catch (err) {
+          errors.push({ source: `${WIKI_SOURCE}-summary`, message: (err as Error).message });
+        }
+      } else {
+        errors.push({ source: `${WIKI_SOURCE}-summary`, message: (summary.reason as Error).message });
       }
     }
-    return { source: WIKI_SOURCE, keywords, trends, errors };
+    return { source: WIKI_SOURCE, keywords, trends, errors, ...(overview && { overview }) };
   },
 };

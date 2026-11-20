@@ -26,6 +26,7 @@ function fakeDeps(extra: Partial<Deps> = {}) {
     ["https://hn.algolia.com/", () => new Response(raw("hn-search.json"))],
     ["https://en.wikipedia.org/w/api.php", () => new Response(raw("wiki-search.json"))],
     ["https://wikimedia.org/", () => new Response(raw("wiki-pageviews.json"))],
+    ["https://en.wikipedia.org/api/rest_v1/", () => new Response(raw("wiki-summary.json"))],
     ["https://duckduckgo.com/ac/", () => new Response(raw("ddg-ac.json"))],
     ["https://news.google.com/rss/search", () => new Response(raw("google-news.xml"))],
     ["https://trends.google.com/trending/rss", () => new Response(raw("google-trends.xml"))],

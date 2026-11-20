@@ -86,7 +86,7 @@ export function parseGoogleTrends(xml: string, topic: string): TrendSignal[] {
     const headlines = asArray(raw["ht:news_item"] as Array<Record<string, unknown>> | undefined)
       .map((n) => text(n["ht:news_item_title"]) ?? "")
       .join(" ");
-    if (!matchesTopic({ title, url: "", summary: headlines }, topic)) continue;
+    if (!matchesTopic({ title, url: "", summary: headlines }, topic, "all")) continue;
     const traffic = parseTraffic(text(raw["ht:approx_traffic"]));
     if (traffic === undefined) continue;
     signals.push({

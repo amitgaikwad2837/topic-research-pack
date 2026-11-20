@@ -12,6 +12,7 @@ import type { Deps, ResearchPack } from "./types.js";
 export * from "./types.js";
 export { runResearch, type SourceAdapter } from "./research.js";
 export { fetchPageMarkdown } from "./content/extract.js";
+export { renderReport, type ReportOptions } from "./report.js";
 
 /**
  * Public sources run by default. The Google adapters are in the list but each one switches

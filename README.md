@@ -4,7 +4,7 @@ Give it a topic. Get back one JSON object with **recent news, trend signals, key
 
 It runs three ways, all on the same core:
 
-- **MCP server**: any MCP-capable agent can call it as a tool (`research_topic`, `fetch_page_markdown`, `keyword_ideas`).
+- **MCP server**: any MCP-capable agent can call it as a tool (`research_topic`, `research_report`, `fetch_page_markdown`, `keyword_ideas`).
 - **Apify Actor**: run it on Apify, or call it from Apify's own MCP server once published.
 - **CLI**: `topic-research "your topic"` for local use and debugging.
 
@@ -13,6 +13,13 @@ It runs three ways, all on the same core:
 ```json
 {
   "topic": "vector databases",
+  "generatedAt": "2026-11-20T07:46:14.140Z",
+  "overview": {
+    "title": "Vector database",
+    "summary": "A vector database, vector store or vector search engine is a database that stores and retrieves embeddings of data in vector space. ...",
+    "url": "https://en.wikipedia.org/wiki/Vector_database",
+    "source": "wikipedia"
+  },
   "news": [
     {
       "title": "I tried to beat \"the fastest vector database\" on its own benchmark",
@@ -61,7 +68,7 @@ It runs three ways, all on the same core:
 
 (Trimmed from a real run. Real output has more items; page text is capped per page.)
 
-`news` is for news and trending links. `references` is for things to read that are not news: research papers, code repositories and Q&A threads (`kind` is `paper`, `repo` or `question`). `trends` also carries counts such as how many arXiv papers and GitHub repositories match the topic.
+`overview` is a short neutral description of the topic (the summary of the best-matching Wikipedia article; left out for ambiguous topics such as "Mercury"). `generatedAt` is the retrieval date that citations use. `news` is for news and trending links. `references` is for things to read that are not news: research papers, code repositories and Q&A threads (`kind` is `paper`, `repo` or `question`). `trends` also carries counts such as how many arXiv papers and GitHub repositories match the topic.
 
 One source failing never fails the run. It is listed in `errors` and the rest of the pack is still returned.
 
@@ -70,7 +77,7 @@ One source failing never fails the run. It is listed in `errors` and the rest of
 | Source | Gives | Default |
 |---|---|---|
 | Hacker News (Algolia API) | news, last 30 days | on |
-| Wikipedia search + Wikimedia pageviews | related topics, pageview trend (7 days and change vs the 7 before) | on |
+| Wikipedia search, summary + Wikimedia pageviews | related topics, the topic `overview`, pageview trend (7 days and change vs the 7 before) | on |
 | DuckDuckGo suggestions | keyword ideas (unofficial endpoint) | on |
 | Your RSS/Atom feeds | news (only items that mention the topic) | on when you pass feeds |
 | Mastodon trending links (mastodon.social) | news: trending links that mention the topic | on |
@@ -82,7 +89,7 @@ One source failing never fails the run. It is listed in `errors` and the rest of
 | `apify/google-search-scraper` | web search results | **off**, Apify platform only, billed separately |
 | GDELT DOC API | news | **off**, experimental (see below) |
 
-All "on" sources are public, need no API key, and make one request per run. Mastodon and Lobsters publish a global "what is trending" list that cannot be queried by topic, so only entries that mention your topic are kept; for many topics that is nothing. The unauthenticated GitHub and Stack Exchange APIs have small per-IP request limits, so on a busy shared network they can answer with a rate-limit error. That is reported in `errors` and does not fail the run. Skip any source with `excludeSources` (names as they appear in `sourcesUsed`), or set `maxReferences` to 0 to turn off arXiv, Stack Exchange and GitHub together.
+All "on" sources are public, need no API key, and make one request per run. Mastodon and Lobsters publish a global "what is trending" list that cannot be queried by topic, so only entries that mention **all** words of your topic are kept (plural-insensitive); for many topics that is nothing. Your own RSS feeds use the looser rule: any word of the topic. The unauthenticated GitHub and Stack Exchange APIs have small per-IP request limits, so on a busy shared network they can answer with a rate-limit error. That is reported in `errors` and does not fail the run. Skip any source with `excludeSources` (names as they appear in `sourcesUsed`), or set `maxReferences` to 0 to turn off arXiv, Stack Exchange and GitHub together.
 
 **GDELT is experimental.** Every request to its API from the development machine was answered with HTTP 429, so its response format could not be checked against a real response. The parser follows the documentation of a maintained client library, and any mismatch shows up as an error in `errors`, not as wrong data. Enable it with `enableGdelt` (CLI `--gdelt`, MCP server `--enable-gdelt`).
 
@@ -107,7 +114,15 @@ npx tsx src/cli.ts "ai agents"
 npx tsx src/cli.ts "ai agents" --pages 2 --feed https://example.com/feed.xml
 ```
 
-Options: `--feed <url>` (repeatable), `--pages <0-10>`, `--references <0-50>`, `--exclude <name,name>`, `--no-robots`, `--google`, `--gdelt`.
+Options: `--format json|markdown` (default `json`), `--feed <url>` (repeatable), `--pages <0-10>`, `--references <0-50>`, `--exclude <name,name>`, `--no-robots`, `--google`, `--gdelt`.
+
+`--format markdown` prints a readable brief instead of JSON:
+
+```bash
+npx tsx src/cli.ts "vector databases" --format markdown > brief.md
+```
+
+The brief has an overview, signals, news, papers/code/questions, keyword ideas and short page excerpts. Every claim carries a numbered citation, and the Sources list gives each URL with its publication date and the retrieval date. It is assembled by fixed rules, not by a language model, and it says so at the end: check the originals before quoting them.
 
 ### MCP server
 
@@ -140,11 +155,12 @@ Tools:
 
 | Tool | Use it to | Notes |
 |---|---|---|
+| `research_report` | the same research as a ready-to-read cited markdown brief | same args as `research_topic`; returns `{ markdown }` |
 | `research_topic` | get the full pack for a topic | args: `topic`, `maxNews`, `maxKeywords`, `maxReferences`, `maxPages`, `maxCharsPerPage`, `rssFeeds`, `excludeSources` |
 | `fetch_page_markdown` | read one URL as clean markdown | args: `url`, `maxChars` |
 | `keyword_ideas` | get keyword and related-topic ideas fast | args: `topic`, `maxKeywords`. No news, no page fetching |
 
-All three are read-only. Safety switches are **server settings, not tool arguments**, so an agent cannot change them: `--no-robots` (stop checking robots.txt), `--enable-google` (turn on Google sources) and `--enable-gdelt` (turn on the experimental GDELT source).
+All four are read-only. Safety switches are **server settings, not tool arguments**, so an agent cannot change them: `--no-robots` (stop checking robots.txt), `--enable-google` (turn on Google sources) and `--enable-gdelt` (turn on the experimental GDELT source).
 
 ### Apify Actor
 
@@ -165,7 +181,7 @@ Input:
 | `enableGoogleSources` | false | see below |
 | `useGoogleSearchActor` | false | also call `apify/google-search-scraper` (billed to you by that Actor) |
 
-Output: one dataset item per run, shaped as above. Table views for the overview, news and keywords are defined in `.actor/dataset_schema.json`.
+Output: one dataset item per run, shaped as above, plus the same research as a markdown brief in the run's key-value store under the key `REPORT.md` (not billed separately). Table views for the overview, news and keywords are defined in `.actor/dataset_schema.json`.
 
 Run locally with the Apify CLI:
 

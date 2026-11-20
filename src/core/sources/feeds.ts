@@ -13,11 +13,22 @@ export function topicTerms(topic: string): string[] {
     .filter((w) => w.length >= 3);
 }
 
-/** An item matches when its title or summary contains any topic term (or the whole topic, for short topics). */
-export function matchesTopic(item: FeedItem, topic: string): boolean {
+/** Drops a plural "s" so "databases" also finds "database". Only used by the strict mode. */
+const singular = (w: string): string => (w.length > 3 && w.endsWith("s") ? w.slice(0, -1) : w);
+
+/**
+ * An item matches when its title or summary contains the topic.
+ * - `any` (default): at least one topic term. Right for a feed the caller chose themselves.
+ * - `all`: every topic term (plural-insensitive). Right for global "trending now" lists, which
+ *   are not searched by topic, so a loose match would let unrelated entries through.
+ * A topic with no term of 3+ characters falls back to a plain substring match.
+ */
+export function matchesTopic(item: FeedItem, topic: string, mode: "any" | "all" = "any"): boolean {
   const hay = `${item.title} ${item.summary ?? ""}`.toLowerCase();
   const terms = topicTerms(topic);
-  return terms.length === 0 ? hay.includes(topic.toLowerCase()) : terms.some((t) => hay.includes(t));
+  if (terms.length === 0) return hay.includes(topic.toLowerCase());
+  if (mode === "all") return terms.every((t) => hay.includes(singular(t)));
+  return terms.some((t) => hay.includes(t));
 }
 
 /**

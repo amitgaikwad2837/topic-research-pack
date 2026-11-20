@@ -85,6 +85,7 @@ test("wikipedia: adapter returns keywords and trends", async () => {
   const f = router({
     "https://en.wikipedia.org/w/api.php": () => new Response(raw("wiki-search.json")),
     "https://wikimedia.org/api/rest_v1/metrics/pageviews/": () => new Response(raw("wiki-pageviews.json")),
+    "https://en.wikipedia.org/api/rest_v1/page/summary/": () => new Response(raw("wiki-summary.json")),
   });
   const pack = await runResearch({ topic: "ai agents" }, { fetch: f.fetch, lookup }, [wikipediaSource]);
   assert.equal(pack.keywords[0]?.keyword, "AI agent");

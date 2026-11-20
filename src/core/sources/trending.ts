@@ -30,7 +30,7 @@ export function parseMastodonTrends(json: unknown, topic: string): NewsItem[] {
   for (const l of MastodonSchema.parse(json)) {
     const title = l.title.trim();
     if (!title) continue;
-    if (!matchesTopic({ title, url: l.url, ...(l.description && { summary: l.description }) }, topic)) continue;
+    if (!matchesTopic({ title, url: l.url, ...(l.description && { summary: l.description }) }, topic, "all")) continue;
     out.push({
       title,
       url: l.url,
@@ -72,7 +72,7 @@ export function parseLobsters(json: unknown, topic: string): NewsItem[] {
     const title = s.title.trim();
     if (!url || !title) continue;
     const summary = `${s.description_plain ?? ""} ${(s.tags ?? []).join(" ")}`.trim();
-    if (!matchesTopic({ title, url, ...(summary && { summary }) }, topic)) continue;
+    if (!matchesTopic({ title, url, ...(summary && { summary }) }, topic, "all")) continue;
     const t = s.created_at ? Date.parse(s.created_at) : Number.NaN;
     out.push({
       title,

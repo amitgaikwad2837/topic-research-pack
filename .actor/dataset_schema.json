@@ -5,16 +5,49 @@
   "fields": {
     "type": "object",
     "properties": {
-      "topic": { "type": "string" },
+      "topic": {
+        "type": "string"
+      },
+      "generatedAt": {
+        "type": "string"
+      },
+      "overview": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          }
+        }
+      },
       "news": {
         "type": "array",
         "items": {
           "type": "object",
           "properties": {
-            "title": { "type": "string" },
-            "url": { "type": "string" },
-            "source": { "type": "string" },
-            "publishedAt": { "type": "string" }
+            "title": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            },
+            "publishedAt": {
+              "type": "string"
+            }
           }
         }
       },
@@ -23,9 +56,15 @@
         "items": {
           "type": "object",
           "properties": {
-            "label": { "type": "string" },
-            "value": { "type": "number" },
-            "source": { "type": "string" }
+            "label": {
+              "type": "string"
+            },
+            "value": {
+              "type": "number"
+            },
+            "source": {
+              "type": "string"
+            }
           }
         }
       },
@@ -34,8 +73,12 @@
         "items": {
           "type": "object",
           "properties": {
-            "keyword": { "type": "string" },
-            "source": { "type": "string" }
+            "keyword": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            }
           }
         }
       },
@@ -44,12 +87,29 @@
         "items": {
           "type": "object",
           "properties": {
-            "title": { "type": "string" },
-            "url": { "type": "string" },
-            "source": { "type": "string" },
-            "kind": { "type": "string", "enum": ["paper", "repo", "question"] },
-            "publishedAt": { "type": "string" },
-            "summary": { "type": "string" }
+            "title": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "paper",
+                "repo",
+                "question"
+              ]
+            },
+            "publishedAt": {
+              "type": "string"
+            },
+            "summary": {
+              "type": "string"
+            }
           }
         }
       },
@@ -58,20 +118,35 @@
         "items": {
           "type": "object",
           "properties": {
-            "url": { "type": "string" },
-            "title": { "type": "string" },
-            "markdown": { "type": "string" }
+            "url": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "markdown": {
+              "type": "string"
+            }
           }
         }
       },
-      "sourcesUsed": { "type": "array", "items": { "type": "string" } },
+      "sourcesUsed": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
       "errors": {
         "type": "array",
         "items": {
           "type": "object",
           "properties": {
-            "source": { "type": "string" },
-            "message": { "type": "string" }
+            "source": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            }
           }
         }
       }
@@ -82,19 +157,62 @@
       "title": "Overview",
       "description": "The whole research pack.",
       "transformation": {
-        "fields": ["topic", "sourcesUsed", "news", "trends", "keywords", "references", "pages", "errors"]
+        "fields": [
+          "topic",
+          "generatedAt",
+          "overview",
+          "sourcesUsed",
+          "news",
+          "trends",
+          "keywords",
+          "references",
+          "pages",
+          "errors"
+        ]
       },
       "display": {
         "component": "table",
         "properties": {
-          "topic": { "label": "Topic", "format": "text" },
-          "sourcesUsed": { "label": "Sources used", "format": "array" },
-          "news": { "label": "News", "format": "array" },
-          "trends": { "label": "Trends", "format": "array" },
-          "keywords": { "label": "Keywords", "format": "array" },
-          "references": { "label": "References (papers, repos, questions)", "format": "array" },
-          "pages": { "label": "Pages (markdown)", "format": "array" },
-          "errors": { "label": "Source issues", "format": "array" }
+          "topic": {
+            "label": "Topic",
+            "format": "text"
+          },
+          "generatedAt": {
+            "label": "Generated",
+            "format": "date"
+          },
+          "overview": {
+            "label": "Overview",
+            "format": "object"
+          },
+          "sourcesUsed": {
+            "label": "Sources used",
+            "format": "array"
+          },
+          "news": {
+            "label": "News",
+            "format": "array"
+          },
+          "trends": {
+            "label": "Trends",
+            "format": "array"
+          },
+          "keywords": {
+            "label": "Keywords",
+            "format": "array"
+          },
+          "references": {
+            "label": "References (papers, repos, questions)",
+            "format": "array"
+          },
+          "pages": {
+            "label": "Pages (markdown)",
+            "format": "array"
+          },
+          "errors": {
+            "label": "Source issues",
+            "format": "array"
+          }
         }
       }
     },
@@ -102,17 +220,38 @@
       "title": "News",
       "description": "One row per news item.",
       "transformation": {
-        "fields": ["news.title", "news.source", "news.publishedAt", "news.url"],
-        "unwind": ["news"],
-        "flatten": ["news"]
+        "fields": [
+          "news.title",
+          "news.source",
+          "news.publishedAt",
+          "news.url"
+        ],
+        "unwind": [
+          "news"
+        ],
+        "flatten": [
+          "news"
+        ]
       },
       "display": {
         "component": "table",
         "properties": {
-          "news.title": { "label": "Title", "format": "text" },
-          "news.source": { "label": "Source", "format": "text" },
-          "news.publishedAt": { "label": "Published", "format": "date" },
-          "news.url": { "label": "Link", "format": "link" }
+          "news.title": {
+            "label": "Title",
+            "format": "text"
+          },
+          "news.source": {
+            "label": "Source",
+            "format": "text"
+          },
+          "news.publishedAt": {
+            "label": "Published",
+            "format": "date"
+          },
+          "news.url": {
+            "label": "Link",
+            "format": "link"
+          }
         }
       }
     },
@@ -120,18 +259,43 @@
       "title": "References",
       "description": "One row per paper, repository or question.",
       "transformation": {
-        "fields": ["references.title", "references.kind", "references.source", "references.publishedAt", "references.url"],
-        "unwind": ["references"],
-        "flatten": ["references"]
+        "fields": [
+          "references.title",
+          "references.kind",
+          "references.source",
+          "references.publishedAt",
+          "references.url"
+        ],
+        "unwind": [
+          "references"
+        ],
+        "flatten": [
+          "references"
+        ]
       },
       "display": {
         "component": "table",
         "properties": {
-          "references.title": { "label": "Title", "format": "text" },
-          "references.kind": { "label": "Kind", "format": "text" },
-          "references.source": { "label": "Source", "format": "text" },
-          "references.publishedAt": { "label": "Date", "format": "date" },
-          "references.url": { "label": "Link", "format": "link" }
+          "references.title": {
+            "label": "Title",
+            "format": "text"
+          },
+          "references.kind": {
+            "label": "Kind",
+            "format": "text"
+          },
+          "references.source": {
+            "label": "Source",
+            "format": "text"
+          },
+          "references.publishedAt": {
+            "label": "Date",
+            "format": "date"
+          },
+          "references.url": {
+            "label": "Link",
+            "format": "link"
+          }
         }
       }
     },
@@ -139,15 +303,28 @@
       "title": "Keywords",
       "description": "One row per keyword idea.",
       "transformation": {
-        "fields": ["keywords.keyword", "keywords.source"],
-        "unwind": ["keywords"],
-        "flatten": ["keywords"]
+        "fields": [
+          "keywords.keyword",
+          "keywords.source"
+        ],
+        "unwind": [
+          "keywords"
+        ],
+        "flatten": [
+          "keywords"
+        ]
       },
       "display": {
         "component": "table",
         "properties": {
-          "keywords.keyword": { "label": "Keyword", "format": "text" },
-          "keywords.source": { "label": "Source", "format": "text" }
+          "keywords.keyword": {
+            "label": "Keyword",
+            "format": "text"
+          },
+          "keywords.source": {
+            "label": "Source",
+            "format": "text"
+          }
         }
       }
     }

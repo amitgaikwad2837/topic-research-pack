@@ -21,6 +21,7 @@ function fakeDeps(): { deps: Deps; calls: string[] } {
     ["https://hn.algolia.com/", () => new Response(raw("hn-search.json"))],
     ["https://en.wikipedia.org/w/api.php", () => new Response(raw("wiki-search.json"))],
     ["https://wikimedia.org/", () => new Response(raw("wiki-pageviews.json"))],
+    ["https://en.wikipedia.org/api/rest_v1/", () => new Response(raw("wiki-summary.json"))],
     ["https://duckduckgo.com/ac/", () => new Response(raw("ddg-ac.json"))],
     ["https://blocked.example/robots.txt", () => new Response("User-agent: *\nDisallow: /")],
     ["https://blocked.example/", () => html(article)],
@@ -48,11 +49,11 @@ type ToolResult = { isError?: boolean; structuredContent?: unknown; content?: Ar
 
 // ---- in-memory, real MCP client ----
 
-test("lists the three tools with read-only annotations and schemas", async () => {
+test("lists the four tools with read-only annotations and schemas", async () => {
   const { deps } = fakeDeps();
   const { client, close } = await connect(deps);
   const { tools } = await client.listTools();
-  assert.deepEqual(tools.map((t) => t.name).sort(), ["fetch_page_markdown", "keyword_ideas", "research_topic"]);
+  assert.deepEqual(tools.map((t) => t.name).sort(), ["fetch_page_markdown", "keyword_ideas", "research_report", "research_topic"]);
   for (const t of tools) {
     assert.equal(t.annotations?.readOnlyHint, true, t.name);
     assert.equal(t.annotations?.destructiveHint, false, t.name);
@@ -79,6 +80,19 @@ test("research_topic returns a pack that validates against the output schema", a
   assert.ok(pack.keywords.length > 0 && pack.trends.length === 2);
   // The text content mirrors the structured content for clients that only read text.
   assert.deepEqual(JSON.parse(res.content?.[0]?.text ?? "null"), pack);
+  await close();
+});
+
+test("research_report returns a cited markdown brief, and the operator-only switches still apply", async () => {
+  const { deps, calls } = fakeDeps();
+  const { client, close } = await connect(deps);
+  const res = (await client.callTool({ name: "research_report", arguments: { topic: "ai agents", maxPages: 0 } })) as ToolResult;
+  assert.ok(!res.isError);
+  const markdown = (res.structuredContent as { markdown: string }).markdown;
+  assert.match(markdown, /^# Research brief: ai agents/);
+  assert.match(markdown, /## Sources/);
+  assert.equal(res.content?.[0]?.text, markdown, "the text content is the report itself, not JSON");
+  assert.ok(!calls.some((c) => /google\.com|gdeltproject/.test(c)), "Google and GDELT stay off");
   await close();
 });
 
@@ -194,7 +208,7 @@ test("http: a real client can list and call tools over Streamable HTTP", async (
     const client = new Client({ name: "http-client", version: "1.0.0" });
     await client.connect(new StreamableHTTPClientTransport(url));
     const { tools } = await client.listTools();
-    assert.equal(tools.length, 3);
+    assert.equal(tools.length, 4);
     const res = (await client.callTool({ name: "keyword_ideas", arguments: { topic: "ai agents", maxKeywords: 3 } })) as ToolResult;
     assert.ok(!res.isError);
     assert.equal((res.structuredContent as { keywords: unknown[] }).keywords.length, 3);
@@ -237,7 +251,7 @@ test("stdio: the real entry point starts, lists tools and refuses private URLs",
   try {
     await client.connect(transport);
     const { tools } = await client.listTools();
-    assert.equal(tools.length, 3);
+    assert.equal(tools.length, 4);
     // No network needed: the SSRF guard rejects this before any request.
     const res = (await client.callTool({ name: "fetch_page_markdown", arguments: { url: "http://127.0.0.1/" } })) as ToolResult;
     assert.equal(res.isError, true);

@@ -26,6 +26,7 @@ function fakeDeps(extra: Array<[string, () => Response]> = []): { deps: Deps; ca
     ["https://hn.algolia.com/", () => new Response(raw("hn-search.json"))],
     ["https://en.wikipedia.org/w/api.php", () => new Response(raw("wiki-search.json"))],
     ["https://wikimedia.org/", () => new Response(raw("wiki-pageviews.json"))],
+    ["https://en.wikipedia.org/api/rest_v1/", () => new Response(raw("wiki-summary.json"))],
     ["https://duckduckgo.com/ac/", () => new Response(raw("ddg-ac.json"))],
     ["https://export.arxiv.org/", () => new Response(raw("arxiv.xml"))],
     ["https://api.stackexchange.com/", () => new Response(raw("stackexchange.json"))],

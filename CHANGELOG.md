@@ -2,6 +2,19 @@
 
 All notable changes are listed here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+- `overview` in the pack: the Wikipedia summary of the best-matching article (skipped for disambiguation pages), and `generatedAt`.
+- Cited markdown brief: `renderReport()`, CLI `--format markdown`, MCP tool `research_report`, and a `REPORT.md` record saved by the Actor.
+
+### Changed
+- Global trending lists (Mastodon, Lobsters, Google Trends) now require all words of the topic, ignoring a plural s, so unrelated entries are dropped. Feeds you supply still match on any word.
+
+### Fixed
+- MCP HTTP server: an oversized request body could reset the connection instead of returning 413.
+- Updated zod to 4.x and pinned a fixed basic-ftp (security advisories).
+
 ## [0.1.0] - 2026-11-20
 
 First version.

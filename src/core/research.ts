@@ -123,6 +123,7 @@ export async function runResearch(
   const referenceLists: ReferenceItem[][] = [];
   const pack: ResearchPack = {
     topic: input.topic,
+    generatedAt: (deps.now?.() ?? new Date()).toISOString(),
     news: [],
     trends: [],
     keywords: [],
@@ -141,6 +142,8 @@ export async function runResearch(
       keywordLists.push(res.value.keywords ?? []);
       referenceLists.push(res.value.references ?? []);
       pack.errors.push(...(res.value.errors ?? []));
+      // The first source (in adapter order) that could describe the topic wins.
+      if (res.value.overview && !pack.overview) pack.overview = res.value.overview;
     } else {
       const message = res.reason instanceof Error ? res.reason.message : String(res.reason);
       pack.errors.push({ source: name, message });

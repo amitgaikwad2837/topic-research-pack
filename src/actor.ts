@@ -12,6 +12,14 @@ try {
     // Plain pushData (no event name): billing is done explicitly below, so a failed run is never charged.
     pushPack: (pack) => Actor.pushData(pack),
     saveOutput: (pack) => Actor.setValue("OUTPUT", pack),
+    async saveReport(markdown) {
+      // A report is a convenience on top of the dataset item, so a failure here must not fail the run.
+      try {
+        await Actor.setValue("REPORT.md", markdown, { contentType: "text/markdown; charset=utf-8" });
+      } catch (err) {
+        log.warning(`Could not save REPORT.md: ${err instanceof Error ? err.message : String(err)}`);
+      }
+    },
     async charge(eventName, count) {
       try {
         const result = await Actor.charge({ eventName, count });

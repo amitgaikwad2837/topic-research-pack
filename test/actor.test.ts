@@ -16,6 +16,7 @@ function deps(opts: { allDown?: boolean } = {}): Deps {
         ["https://hn.algolia.com/", () => new Response(raw("hn-search.json"))],
         ["https://en.wikipedia.org/w/api.php", () => new Response(raw("wiki-search.json"))],
         ["https://wikimedia.org/", () => new Response(raw("wiki-pageviews.json"))],
+        ["https://en.wikipedia.org/api/rest_v1/", () => new Response(raw("wiki-summary.json"))],
         ["https://duckduckgo.com/ac/", () => new Response(raw("ddg-ac.json"))],
         ["https://", () => html(article)],
       ];
@@ -31,12 +32,14 @@ function fakeIO(limits: Record<string, number> = {}) {
   const log = {
     pushed: [] as ResearchPack[],
     saved: [] as ResearchPack[],
+    reports: [] as string[],
     charges: [] as Array<[string, number]>,
     status: [] as string[],
   };
   const io: ActorIO = {
     pushPack: async (p) => void log.pushed.push(p),
     saveOutput: async (p) => void log.saved.push(p),
+    saveReport: async (m) => void log.reports.push(m),
     charge: async (e, n) => void log.charges.push([e, n]),
     maxCharges: (e) => limits[e] ?? Infinity,
     setStatus: async (m) => void log.status.push(m),
@@ -56,6 +59,8 @@ test("success: pushes exactly one valid pack, then charges the pack and each pag
     [EVENT_PAGE_MARKDOWN, 2],
   ]);
   assert.deepEqual(log.saved, []);
+  assert.equal(log.reports.length, 1);
+  assert.match(log.reports[0] ?? "", /^# Research brief: ai agents/);
   assert.match(res.message, /Done: .* 2 pages/);
 });
 
@@ -73,6 +78,7 @@ test("every source down: nothing is pushed or charged, the result is kept as OUT
   assert.match(res.message, /Not charged/);
   assert.deepEqual(log.pushed, []);
   assert.deepEqual(log.charges, []);
+  assert.deepEqual(log.reports, []);
   assert.equal(log.saved.length, 1);
   assert.ok(log.saved[0]!.errors.length >= 3);
 });

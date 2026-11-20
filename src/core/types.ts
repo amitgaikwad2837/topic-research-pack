@@ -47,6 +47,15 @@ export const KeywordIdeaSchema = z.object({
   keyword: z.string(),
   source: z.string(),
 });
+/** A short, neutral description of the topic itself (Wikipedia's summary of the best-matching article). */
+export const OverviewSchema = z.object({
+  title: z.string(),
+  summary: z.string(),
+  url: z.string(),
+  description: z.string().optional(),
+  source: z.string(),
+});
+
 /** Something to read about the topic that is not news: a paper, a code repository or a Q&A thread. */
 export const ReferenceItemSchema = z.object({
   title: z.string(),
@@ -69,6 +78,10 @@ export const SourceErrorSchema = z.object({
 /** The single JSON object every interface (Actor, MCP, CLI) returns. */
 export const ResearchPackSchema = z.object({
   topic: z.string(),
+  /** When the pack was assembled (ISO 8601). Citations use it as the retrieval date. */
+  generatedAt: z.string(),
+  /** Absent when no source could describe the topic. */
+  overview: OverviewSchema.optional(),
   news: z.array(NewsItemSchema),
   trends: z.array(TrendSignalSchema),
   keywords: z.array(KeywordIdeaSchema),
@@ -81,6 +94,7 @@ export const ResearchPackSchema = z.object({
 export type NewsItem = z.infer<typeof NewsItemSchema>;
 export type TrendSignal = z.infer<typeof TrendSignalSchema>;
 export type KeywordIdea = z.infer<typeof KeywordIdeaSchema>;
+export type Overview = z.infer<typeof OverviewSchema>;
 export type ReferenceItem = z.infer<typeof ReferenceItemSchema>;
 export type PageContent = z.infer<typeof PageContentSchema>;
 export type SourceError = z.infer<typeof SourceErrorSchema>;
@@ -92,6 +106,8 @@ export interface Deps {
   lookup?: Lookup;
   /** Runs another Apify Actor and returns its dataset items. Only available on the Apify platform. */
   callActor?: (actorId: string, input: unknown) => Promise<unknown[]>;
+  /** Clock override, for tests. */
+  now?: () => Date;
 }
 
 /** Every source adapter returns this shape and fails soft. */
@@ -101,6 +117,7 @@ export interface SourceResult {
   trends?: TrendSignal[];
   keywords?: KeywordIdea[];
   references?: ReferenceItem[];
+  overview?: Overview;
   /** Partial failures inside an adapter (for example one bad feed out of three). */
   errors?: SourceError[];
 }
