@@ -18,15 +18,50 @@ function jsonRpcError(res: ServerResponse, status: number, code: number, message
   res.end(JSON.stringify({ jsonrpc: "2.0", error: { code, message }, id: null }));
 }
 
-async function readJson(req: IncomingMessage): Promise<unknown> {
-  const chunks: Buffer[] = [];
-  let size = 0;
-  for await (const chunk of req) {
-    size += (chunk as Buffer).length;
-    if (size > MAX_BODY_BYTES) throw new Error("Request body too large");
-    chunks.push(chunk as Buffer);
-  }
-  return JSON.parse(Buffer.concat(chunks).toString("utf8"));
+class BodyTooLargeError extends Error {
+  override name = "BodyTooLargeError";
+}
+
+/** If a client keeps sending this much, stop being polite and cut the connection. */
+const DRAIN_LIMIT_BYTES = 8 * MAX_BODY_BYTES;
+
+/**
+ * Reads and parses a JSON body of at most MAX_BODY_BYTES.
+ *
+ * When the body is too large this rejects immediately but keeps the request flowing and discards
+ * the rest of the upload. Leaving the stream early (for example by throwing out of `for await`)
+ * would destroy the socket, so the client could get a connection reset instead of the 413.
+ */
+function readJson(req: IncomingMessage): Promise<unknown> {
+  return new Promise((resolve, reject) => {
+    const chunks: Buffer[] = [];
+    let size = 0;
+    let tooLarge = false;
+
+    req.on("data", (chunk: Buffer) => {
+      size += chunk.length;
+      if (tooLarge) {
+        if (size > DRAIN_LIMIT_BYTES) req.destroy();
+        return;
+      }
+      if (size > MAX_BODY_BYTES) {
+        tooLarge = true;
+        chunks.length = 0;
+        reject(new BodyTooLargeError("Request body too large"));
+        return;
+      }
+      chunks.push(chunk);
+    });
+    req.on("end", () => {
+      if (tooLarge) return;
+      try {
+        resolve(JSON.parse(Buffer.concat(chunks).toString("utf8")));
+      } catch (err) {
+        reject(err);
+      }
+    });
+    req.on("error", reject);
+  });
 }
 
 /** Host header without the port, lowercased. */
@@ -61,8 +96,12 @@ export function createHttpServer(config: HttpServerConfig): Server {
       try {
         body = await readJson(req);
       } catch (err) {
-        const tooLarge = err instanceof Error && err.message.includes("too large");
-        return jsonRpcError(res, tooLarge ? 413 : 400, tooLarge ? -32000 : -32700, tooLarge ? "Request body too large" : "Parse error");
+        if (err instanceof BodyTooLargeError) {
+          // Tell the client we will close after this response; the rest of its upload is discarded.
+          res.setHeader("connection", "close");
+          return jsonRpcError(res, 413, -32000, "Request body too large");
+        }
+        return jsonRpcError(res, 400, -32700, "Parse error");
       }
 
       const server = createMcpServer(config.deps, config.options);
