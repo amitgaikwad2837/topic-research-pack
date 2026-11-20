@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:ht="https://trends.example.com/trending/rss" version="2.0">
+	<channel>
+		<title>Daily Search Trends (synthetic)</title>
+		<description>Synthetic test data</description>
+		<item>
+			<title>zorblax conference</title>
+			<ht:approx_traffic>1000+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.example.com/trending/rss?geo=US</link>
+			<pubDate>Sun, 15 Nov 2026 12:30:00 -0800</pubDate>
+			<ht:news_item>
+				<ht:news_item_title>Synthetic story about the zorblax conference</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://news.example.com/stories/t0</ht:news_item_url>
+				<ht:news_item_source>Example Wire</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>river festival</title>
+			<ht:approx_traffic>2000+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.example.com/trending/rss?geo=US</link>
+			<pubDate>Sun, 15 Nov 2026 12:29:00 -0800</pubDate>
+			<ht:news_item>
+				<ht:news_item_title>Synthetic story about the river festival</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://news.example.com/stories/t1</ht:news_item_url>
+				<ht:news_item_source>Example Wire</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>city marathon</title>
+			<ht:approx_traffic>500+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.example.com/trending/rss?geo=US</link>
+			<pubDate>Sun, 15 Nov 2026 12:28:00 -0800</pubDate>
+			<ht:news_item>
+				<ht:news_item_title>Synthetic story about the city marathon</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://news.example.com/stories/t2</ht:news_item_url>
+				<ht:news_item_source>Example Wire</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>harvest moon</title>
+			<ht:approx_traffic>200+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.example.com/trending/rss?geo=US</link>
+			<pubDate>Sun, 15 Nov 2026 12:27:00 -0800</pubDate>
+			<ht:news_item>
+				<ht:news_item_title>Synthetic story about the harvest moon</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://news.example.com/stories/t3</ht:news_item_url>
+				<ht:news_item_source>Example Wire</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>tram line opening</title>
+			<ht:approx_traffic>5000+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.example.com/trending/rss?geo=US</link>
+			<pubDate>Sun, 15 Nov 2026 12:26:00 -0800</pubDate>
+			<ht:news_item>
+				<ht:news_item_title>Synthetic story about the tram line opening</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://news.example.com/stories/t4</ht:news_item_url>
+				<ht:news_item_source>Example Wire</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>winter schedule</title>
+			<ht:approx_traffic>1000+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.example.com/trending/rss?geo=US</link>
+			<pubDate>Sun, 15 Nov 2026 12:25:00 -0800</pubDate>
+			<ht:news_item>
+				<ht:news_item_title>Synthetic story about the winter schedule</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://news.example.com/stories/t5</ht:news_item_url>
+				<ht:news_item_source>Example Wire</ht:news_item_source>
+			</ht:news_item>
+		</item>
+	</channel>
+</rss>

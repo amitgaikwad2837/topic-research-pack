@@ -1,0 +1,15 @@
+{
+  "actorSpecification": 1,
+  "name": "topic-research-pack",
+  "title": "Topic Research Pack: news, trends, keywords and page text",
+  "description": "One topic in, one research pack out: recent news, trend signals, keyword ideas and clean markdown from top pages. Built for AI agents and RAG.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "storages": {
+    "dataset": "./dataset_schema.json"
+  },
+  "minMemoryMbytes": 256,
+  "maxMemoryMbytes": 1024
+}

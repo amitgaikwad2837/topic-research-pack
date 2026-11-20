@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/+pREfHvZbUf8OQPB22a4tjB0450</id>
+  <title>arXiv Query: search_query=all:"ai agents"&amp;id_list=&amp;start=0&amp;max_results=5</title>
+  <updated>2026-11-19T20:32:09Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=all:%22ai+agents%22&amp;start=0&amp;max_results=5&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>5</opensearch:itemsPerPage>
+  <opensearch:totalResults>4602</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2611.24888v1</id>
+    <title>Who are you? The Personal Imitation Game</title>
+    <updated>2026-11-18T18:32:14Z</updated>
+    <link href="https://arxiv.org/abs/2611.24888v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2611.24888v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Large Language Models (LLMs) now perform strongly on Alan Turing's 1950 Imitation Game, so we propose a harder challenge, the Personal Imitation Game, which asks whether a machine can replicate a specific individual in conversation rather than a generic human. Testing with 30 participants, we establish a human baseline and report the identity signals interrogators rely on: stylometric features, personality traits, and biographical facts. To demonstrate the framework, we design an LLM-based system that plays the game for one of the paper's authors, drawing on an autoethnographic dataset spanning ten years of personal digital communication. In a 20-person deception study, interrogators choose our system over the author's own friends in 7 of 10 rounds, and the author over our system in 13 of 20; neither rate is distinguishable from chance at this sample size. We consider design improvements, applications of personal AI agents, and implications for identity and privacy.</summary>
+    <category term="cs.HC" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-11-18T18:32:14Z</published>
+    <arxiv:comment>19 pages, 6 figures, 5 tables</arxiv:comment>
+    <arxiv:primary_category term="cs.HC"/>
+    <author>
+      <name>Muhammad Rizky Wellyanto</name>
+    </author>
+    <author>
+      <name>Hajara-Yasmin Isa</name>
+    </author>
+    <author>
+      <name>Kexin Xue</name>
+    </author>
+    <author>
+      <name>Vishal Ravichandran</name>
+    </author>
+    <author>
+      <name>Wenpeng Lu</name>
+    </author>
+    <author>
+      <name>Jerry O. Talton</name>
+    </author>
+    <author>
+      <name>Ranjitha Kumar</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2611.24880v1</id>
+    <title>Local AI Agents in Power Electronics Simulation: Deployment, Measurements and Costs</title>
+    <updated>2026-11-18T18:27:40Z</updated>
+    <link href="https://arxiv.org/abs/2611.24880v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2611.24880v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Agentic artificial intelligence (AI) is emerging in power electronics, where it drives the simulation loop that engineers used to close largely by hand. In this loop, a converter design, or a study of the network it connects to, is built, run, measured and revised until it satisfies its specification. Such an agent can be served from a cloud API or from an inference device on the premises. For organizations whose designs, customer data or export-controlled material cannot leave the site, and whose simulators are licensed there, local deployment is the natural choice. In such a deployment, the agent becomes an electrical load on the organization's own equipment, i.e., every run consumes power and energy on a local device, generates tokens and takes time. However, existing work focuses mainly on what the agent can achieve with cloud-hosted models. What a local deployment costs in power, energy, tokens and time on real simulation tasks, and what its choices trade against one another, has received little quantitative investigation under comparable conditions. To address this gap, a systematic evaluation framework is presented in this paper. It applies locally served models to agentic power electronics tasks, from the converter level to the system level, and measures their power, energy, token and time costs. Based on these measurements, the capability boundary of a local agent on such tasks and the cost per solved task are characterized. The results are expected to provide practical insight for the use of agentic AI in power electronics and the power systems it serves.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-11-18T18:27:40Z</published>
+    <arxiv:comment>27 pages, 23 figures, 12 tables</arxiv:comment>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Yuzhuo Li</name>
+    </author>
+    <author>
+      <name>Pasan Gunawardena</name>
+    </author>
+    <author>
+      <name>Yunwei Li</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2611.24845v1</id>
+    <title>Vibe-Trading: Towards Agent-Native Trading</title>
+    <updated>2026-11-18T18:07:57Z</updated>
+    <link href="https://arxiv.org/abs/2611.24845v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2611.24845v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Existing AI agents can retrieve information, call tools, run experiments, and produce multi-step outputs. Yet most are built around relatively static workflows and struggle to preserve reliable state as the environment changes. Financial trading makes this limitation especially consequential: prices, news, market conditions, portfolio positions, and available capital evolve continuously. A result is useful only when it remains tied to the correct time, data snapshot, and execution context. We present Vibe-Trading, a comprehensive agent-native trading framework and all-in-one workspace for building, evaluating, and evolving agents for financial trading. It unifies market research, financial data, strategy generation, backtesting, portfolio analysis, paper trading, multi-agent collaboration, and optional broker execution. Its central contribution is an architecture that keeps results, evidence, research history, and trading authority connected throughout the research-to-action process. Each result retains its source, temporal scope, configuration, and producing run. Shared evidence grounding enables verification, versioned research records support reproducible continuation, and an explicit authority gate separates strategy research from live execution. Together, these designs provide a practical foundation for trading agents whose results can be traced, reproduced, and acted on only under explicit authority.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.MA" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="q-fin.CP" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="q-fin.TR" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-11-18T18:07:57Z</published>
+    <arxiv:comment>Technical report. 16 pages, 8 figures, 4 tables. Code: https://github.com/HKUDS/Vibe-Trading</arxiv:comment>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Haozhe Wu</name>
+    </author>
+    <author>
+      <name>Zhonghang Li</name>
+    </author>
+    <author>
+      <name>Chao Huang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2611.24588v1</id>
+    <title>Large Language Models or AI Agents for English to Arabic Translation? An assessment on WikiEn-Ar190</title>
+    <updated>2026-11-18T15:15:03Z</updated>
+    <link href="https://arxiv.org/abs/2611.24588v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2611.24588v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>This research investigates whether a large language model or an autonomous AI Agent performs better at translating from English to Arabic, which is considered a low-resource language. The authors introduce WikiEn-Ar190, a new dataset of 190 carefully selected Wikipedia articles from 18 different areas, which were created and verified by two native Arabic speakers to ensure that they accurately reflect both meaning and style. Using this dataset, the study evaluates the translation quality of GPT-5-mini both as an independent neural translator and when used within a more complex process that includes self-assessment and improvement. As a standalone model, GPT-5-mini produced very fluent translations , achieving a COMET score of 0.8649 and receiving high human scores for adequacy, fluency, and style (averaging 4.53 out of 5). When used in a system that combined translation with self-assessment, it improved lexical accuracy by 28.76% (BLEU score of 22.83) while maintaining a similar level of semantic quality. These findings show that methods involving autonomous reasoning can improve translation consistency for language pairs with limited resources. Beyond the results, the approach offers a framework for evaluating and improving translations, potentially using them as assisting tools to expand the representation of low resource languages, such as Arabic, on the web.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-11-18T15:15:03Z</published>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Fatima Zahra Iguenfer</name>
+    </author>
+    <author>
+      <name>Yousra Chtouki</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2611.24379v1</id>
+    <title>MoE-Context: Show the Model Only What It Needs</title>
+    <updated>2026-11-18T13:08:14Z</updated>
+    <link href="https://arxiv.org/abs/2611.24379v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2611.24379v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>AI agents read their whole history at every step. People do not work like that: we keep what the moment needs and hold the rest as a rough note we can recall. MoE-Context applies this to language models. The context is split into blocks. Before each step a fast yes or no pass decides which blocks the step needs; the rest stay as one-line notes that can be brought back, and nothing is deleted. In the version we build, one model makes this decision and then answers, over a single key-value cache where hidden blocks are masked rather than removed. On a laptop with Qwen3-1.7B and a synthetic lookup task, showing only the needed block raises accuracy from 93 to 119 of 120, and a masked block is as hidden as a deleted one. The model's own picking is the weak part. A supervised linear probe written into spare output rows lifts its accuracy from 80 to 110 of 120, but simple keyword search picks perfectly on this task, and the probe does not transfer to a second task. We report these results openly, along with two cheap usage patterns that block switching enables: undoing a failed attempt and running subagents without a new context.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-11-18T13:08:14Z</published>
+    <arxiv:comment>10 pages, 10 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Vedant Navale</name>
+    </author>
+  </entry>
+</feed>

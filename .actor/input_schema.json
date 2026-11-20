@@ -1,0 +1,98 @@
+{
+  "title": "Topic Research Pack input",
+  "description": "Give a topic. The Actor returns one research pack: news, trends, keyword ideas and page text as markdown.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "topic": {
+      "title": "Topic",
+      "type": "string",
+      "description": "The topic or keyword to research, for example \"ai agents\".",
+      "editor": "textfield",
+      "prefill": "ai agents"
+    },
+    "maxNews": {
+      "title": "Max news items",
+      "type": "integer",
+      "description": "Maximum number of news items to return (after merging sources).",
+      "default": 10,
+      "minimum": 1,
+      "maximum": 50
+    },
+    "maxKeywords": {
+      "title": "Max keyword ideas",
+      "type": "integer",
+      "description": "Maximum number of keyword ideas to return.",
+      "default": 20,
+      "minimum": 1,
+      "maximum": 100
+    },
+    "maxReferences": {
+      "title": "Max references",
+      "type": "integer",
+      "description": "Papers (arXiv), code repositories (GitHub) and questions (Stack Overflow) about the topic. Set 0 to turn these sources off.",
+      "default": 10,
+      "minimum": 0,
+      "maximum": 50
+    },
+    "maxPages": {
+      "title": "Pages to read as markdown",
+      "type": "integer",
+      "description": "How many of the top articles to fetch and convert to clean markdown. Set 0 to skip page fetching. Each page is billed.",
+      "default": 3,
+      "minimum": 0,
+      "maximum": 10
+    },
+    "maxCharsPerPage": {
+      "title": "Max characters per page",
+      "type": "integer",
+      "description": "Each page's markdown is cut at this length.",
+      "default": 8000,
+      "minimum": 500,
+      "maximum": 50000
+    },
+    "rssFeeds": {
+      "title": "RSS / Atom feeds",
+      "type": "array",
+      "description": "Optional feeds to include. Only items that mention the topic are kept.",
+      "editor": "stringList",
+      "items": { "type": "string" },
+      "prefill": []
+    },
+    "excludeSources": {
+      "title": "Sources to skip",
+      "type": "array",
+      "description": "Names of sources to leave out, as they appear in the output's \"sourcesUsed\", for example github, stackexchange, arxiv, lobsters, mastodon-trends.",
+      "editor": "stringList",
+      "items": { "type": "string" },
+      "prefill": []
+    },
+    "enableGdelt": {
+      "title": "Enable GDELT (experimental)",
+      "type": "boolean",
+      "description": "Adds GDELT global news search. Experimental: its response format could not be checked against a live response, so it may return an error instead of results.",
+      "default": false
+    },
+    "respectRobotsTxt": {
+      "title": "Respect robots.txt",
+      "type": "boolean",
+      "description": "Skip pages that robots.txt disallows. Leave this on unless you have permission from the site. Passing robots.txt does not mean a site's terms allow automated use.",
+      "default": true
+    },
+    "enableGoogleSources": {
+      "title": "Enable Google sources",
+      "type": "boolean",
+      "description": "Adds Google News RSS, Google Trends and Google Suggest. Off by default. These are unofficial endpoints. Google's terms restrict automated use (the Google News feed says it is for personal, non-commercial use), so you are responsible for complying with them.",
+      "default": false,
+      "sectionCaption": "Google (optional, off by default)",
+      "sectionDescription": "Google sources are unofficial and subject to Google's terms. Leave them off unless you have checked that your use is allowed."
+    },
+    "useGoogleSearchActor": {
+      "title": "Add Google search results via apify/google-search-scraper",
+      "type": "boolean",
+      "description": "Also runs the separate Actor apify/google-search-scraper for web search results. That Actor is billed to your Apify account in addition to this one. Needs \"Enable Google sources\".",
+      "default": false
+    }
+  },
+  "required": ["topic"]
+}

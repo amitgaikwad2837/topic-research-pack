@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/">
+    <channel>
+        <title><![CDATA[Example Tech News]]></title>
+        <description><![CDATA[Example Tech News - Technology (synthetic test feed)]]></description>
+        <link>https://news.example.com/technology</link>
+        <generator>synthetic fixture generator</generator>
+        <lastBuildDate>Sun, 15 Nov 2026 14:56:21 GMT</lastBuildDate>
+        <atom:link href="https://news.example.com/technology/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Nvidia chip export probe widens, Example Corp says]]></title>
+            <description><![CDATA[Synthetic summary for item 1. This text is invented for tests.]]></description>
+            <link>https://news.example.com/articles/a1?at_medium=RSS&amp;at_campaign=rss</link>
+            <guid isPermaLink="false">https://news.example.com/articles/a1#0</guid>
+            <pubDate>Sun, 15 Nov 2026 14:56:21 GMT</pubDate>
+            <media:thumbnail width="240" height="135" url="https://img.example.com/t1.jpg"/>
+        </item>
+        <item>
+            <title><![CDATA[City council approves new tram line]]></title>
+            <description><![CDATA[Synthetic summary for item 2. This text is invented for tests.]]></description>
+            <link>https://news.example.com/articles/a2?at_medium=RSS&amp;at_campaign=rss</link>
+            <guid isPermaLink="false">https://news.example.com/articles/a2#0</guid>
+            <pubDate>Sun, 15 Nov 2026 12:56:21 GMT</pubDate>
+            <media:thumbnail width="240" height="135" url="https://img.example.com/t2.jpg"/>
+        </item>
+        <item>
+            <title><![CDATA[Startup unveils battery that charges in minutes]]></title>
+            <description><![CDATA[Synthetic summary for item 3. This text is invented for tests.]]></description>
+            <link>https://news.example.com/articles/a3?at_medium=RSS&amp;at_campaign=rss</link>
+            <guid isPermaLink="false">https://news.example.com/articles/a3#0</guid>
+            <pubDate>Sun, 15 Nov 2026 10:56:21 GMT</pubDate>
+            <media:thumbnail width="240" height="135" url="https://img.example.com/t3.jpg"/>
+        </item>
+        <item>
+            <title><![CDATA[Nvidia earnings beat forecasts as data centre demand grows]]></title>
+            <description><![CDATA[Synthetic summary for item 4. This text is invented for tests.]]></description>
+            <link>https://news.example.com/articles/a4?at_medium=RSS&amp;at_campaign=rss</link>
+            <guid isPermaLink="false">https://news.example.com/articles/a4#0</guid>
+            <pubDate>Sun, 15 Nov 2026 08:56:21 GMT</pubDate>
+            <media:thumbnail width="240" height="135" url="https://img.example.com/t4.jpg"/>
+        </item>
+        <item>
+            <title><![CDATA[Local team wins regional final]]></title>
+            <description><![CDATA[Synthetic summary for item 5. This text is invented for tests.]]></description>
+            <link>https://news.example.com/articles/a5?at_medium=RSS&amp;at_campaign=rss</link>
+            <guid isPermaLink="false">https://news.example.com/articles/a5#0</guid>
+            <pubDate>Sun, 15 Nov 2026 06:56:21 GMT</pubDate>
+            <media:thumbnail width="240" height="135" url="https://img.example.com/t5.jpg"/>
+        </item>
+        <item>
+            <title><![CDATA[Researchers map a new deep-sea ridge]]></title>
+            <description><![CDATA[Synthetic summary for item 6. This text is invented for tests.]]></description>
+            <link>https://news.example.com/articles/a6?at_medium=RSS&amp;at_campaign=rss</link>
+            <guid isPermaLink="false">https://news.example.com/articles/a6#0</guid>
+            <pubDate>Sun, 15 Nov 2026 04:56:21 GMT</pubDate>
+            <media:thumbnail width="240" height="135" url="https://img.example.com/t6.jpg"/>
+        </item>
+        <item>
+            <title><![CDATA[Airline announces winter schedule changes]]></title>
+            <description><![CDATA[Synthetic summary for item 7. This text is invented for tests.]]></description>
+            <link>https://news.example.com/articles/a7?at_medium=RSS&amp;at_campaign=rss</link>
+            <guid isPermaLink="false">https://news.example.com/articles/a7#0</guid>
+            <pubDate>Sun, 15 Nov 2026 02:56:21 GMT</pubDate>
+            <media:thumbnail width="240" height="135" url="https://img.example.com/t7.jpg"/>
+        </item>
+        <item>
+            <title><![CDATA[Open-source database project reaches version 2]]></title>
+            <description><![CDATA[Synthetic summary for item 8. This text is invented for tests.]]></description>
+            <link>https://news.example.com/articles/a8?at_medium=RSS&amp;at_campaign=rss</link>
+            <guid isPermaLink="false">https://news.example.com/articles/a8#0</guid>
+            <pubDate>Sun, 15 Nov 2026 00:56:21 GMT</pubDate>
+            <media:thumbnail width="240" height="135" url="https://img.example.com/t8.jpg"/>
+        </item>
+        <item>
+            <title><![CDATA[Museum reopens after restoration]]></title>
+            <description><![CDATA[Synthetic summary for item 9. This text is invented for tests.]]></description>
+            <link>https://news.example.com/articles/a9?at_medium=RSS&amp;at_campaign=rss</link>
+            <guid isPermaLink="false">https://news.example.com/articles/a9#0</guid>
+            <pubDate>Sat, 14 Nov 2026 22:56:21 GMT</pubDate>
+            <media:thumbnail width="240" height="135" url="https://img.example.com/t9.jpg"/>
+        </item>
+        <item>
+            <title><![CDATA[Chipmaker shares fall on supply worries]]></title>
+            <description><![CDATA[Synthetic summary for item 10. This text is invented for tests.]]></description>
+            <link>https://news.example.com/articles/a10?at_medium=RSS&amp;at_campaign=rss</link>
+            <guid isPermaLink="false">https://news.example.com/articles/a10#0</guid>
+            <pubDate>Sat, 14 Nov 2026 20:56:21 GMT</pubDate>
+            <media:thumbnail width="240" height="135" url="https://img.example.com/t10.jpg"/>
+        </item>
+        <item>
+            <title><![CDATA[New bridge opens to traffic]]></title>
+            <description><![CDATA[Synthetic summary for item 11. This text is invented for tests.]]></description>
+            <link>https://news.example.com/articles/a11?at_medium=RSS&amp;at_campaign=rss</link>
+            <guid isPermaLink="false">https://news.example.com/articles/a11#0</guid>
+            <pubDate>Sat, 14 Nov 2026 18:56:21 GMT</pubDate>
+            <media:thumbnail width="240" height="135" url="https://img.example.com/t11.jpg"/>
+        </item>
+        <item>
+            <title><![CDATA[Weather service warns of early snow]]></title>
+            <description><![CDATA[Synthetic summary for item 12. This text is invented for tests.]]></description>
+            <link>https://news.example.com/articles/a12?at_medium=RSS&amp;at_campaign=rss</link>
+            <guid isPermaLink="false">https://news.example.com/articles/a12#0</guid>
+            <pubDate>Sat, 14 Nov 2026 16:56:21 GMT</pubDate>
+            <media:thumbnail width="240" height="135" url="https://img.example.com/t12.jpg"/>
+        </item>
+        <item>
+            <title><![CDATA[Software update fixes widespread login bug]]></title>
+            <description><![CDATA[Synthetic summary for item 13. This text is invented for tests.]]></description>
+            <link>https://news.example.com/articles/a13?at_medium=RSS&amp;at_campaign=rss</link>
+            <guid isPermaLink="false">https://news.example.com/articles/a13#0</guid>
+            <pubDate>Sat, 14 Nov 2026 14:56:21 GMT</pubDate>
+            <media:thumbnail width="240" height="135" url="https://img.example.com/t13.jpg"/>
+        </item>
+        <item>
+            <title><![CDATA[Cloud provider cuts prices for storage]]></title>
+            <description><![CDATA[Synthetic summary for item 14. This text is invented for tests.]]></description>
+            <link>https://news.example.com/articles/a14?at_medium=RSS&amp;at_campaign=rss</link>
+            <guid isPermaLink="false">https://news.example.com/articles/a14#0</guid>
+            <pubDate>Sat, 14 Nov 2026 12:56:21 GMT</pubDate>
+            <media:thumbnail width="240" height="135" url="https://img.example.com/t14.jpg"/>
+        </item>
+        <item>
+            <title><![CDATA[School launches coding club for teens]]></title>
+            <description><![CDATA[Synthetic summary for item 15. This text is invented for tests.]]></description>
+            <link>https://news.example.com/articles/a15?at_medium=RSS&amp;at_campaign=rss</link>
+            <guid isPermaLink="false">https://news.example.com/articles/a15#0</guid>
+            <pubDate>Sat, 14 Nov 2026 10:56:21 GMT</pubDate>
+            <media:thumbnail width="240" height="135" url="https://img.example.com/t15.jpg"/>
+        </item>
+        <item>
+            <title><![CDATA[Farmers report record apple harvest]]></title>
+            <description><![CDATA[Synthetic summary for item 16. This text is invented for tests.]]></description>
+            <link>https://news.example.com/articles/a16?at_medium=RSS&amp;at_campaign=rss</link>
+            <guid isPermaLink="false">https://news.example.com/articles/a16#0</guid>
+            <pubDate>Sat, 14 Nov 2026 08:56:21 GMT</pubDate>
+            <media:thumbnail width="240" height="135" url="https://img.example.com/t16.jpg"/>
+        </item>
+        <item>
+            <title><![CDATA[Electric bus fleet expands to two more cities]]></title>
+            <description><![CDATA[Synthetic summary for item 17. This text is invented for tests.]]></description>
+            <link>https://news.example.com/articles/a17?at_medium=RSS&amp;at_campaign=rss</link>
+            <guid isPermaLink="false">https://news.example.com/articles/a17#0</guid>
+            <pubDate>Sat, 14 Nov 2026 06:56:21 GMT</pubDate>
+            <media:thumbnail width="240" height="135" url="https://img.example.com/t17.jpg"/>
+        </item>
+        <item>
+            <title><![CDATA[Library adds late-night opening hours]]></title>
+            <description><![CDATA[Synthetic summary for item 18. This text is invented for tests.]]></description>
+            <link>https://news.example.com/articles/a18?at_medium=RSS&amp;at_campaign=rss</link>
+            <guid isPermaLink="false">https://news.example.com/articles/a18#0</guid>
+            <pubDate>Sat, 14 Nov 2026 04:56:21 GMT</pubDate>
+            <media:thumbnail width="240" height="135" url="https://img.example.com/t18.jpg"/>
+        </item>
+        <item>
+            <title><![CDATA[Telescope captures image of distant cluster]]></title>
+            <description><![CDATA[Synthetic summary for item 19. This text is invented for tests.]]></description>
+            <link>https://news.example.com/articles/a19?at_medium=RSS&amp;at_campaign=rss</link>
+            <guid isPermaLink="false">https://news.example.com/articles/a19#0</guid>
+            <pubDate>Sat, 14 Nov 2026 02:56:21 GMT</pubDate>
+            <media:thumbnail width="240" height="135" url="https://img.example.com/t19.jpg"/>
+        </item>
+        <item>
+            <title><![CDATA[Bakery chain recalls seed loaves]]></title>
+            <description><![CDATA[Synthetic summary for item 20. This text is invented for tests.]]></description>
+            <link>https://news.example.com/articles/a20?at_medium=RSS&amp;at_campaign=rss</link>
+            <guid isPermaLink="false">https://news.example.com/articles/a20#0</guid>
+            <pubDate>Sat, 14 Nov 2026 00:56:21 GMT</pubDate>
+            <media:thumbnail width="240" height="135" url="https://img.example.com/t20.jpg"/>
+        </item>
+        <item>
+            <title><![CDATA[Concert tickets sell out in minutes]]></title>
+            <description><![CDATA[Synthetic summary for item 21. This text is invented for tests.]]></description>
+            <link>https://news.example.com/articles/a21?at_medium=RSS&amp;at_campaign=rss</link>
+            <guid isPermaLink="false">https://news.example.com/articles/a21#0</guid>
+            <pubDate>Fri, 13 Nov 2026 22:56:21 GMT</pubDate>
+            <media:thumbnail width="240" height="135" url="https://img.example.com/t21.jpg"/>
+        </item>
+    </channel>
+</rss>
