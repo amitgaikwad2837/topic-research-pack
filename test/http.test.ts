@@ -130,10 +130,18 @@ test("times out a request that never answers", async () => {
         init?.signal?.addEventListener("abort", () => reject(init.signal?.reason));
       }),
   );
-  await assert.rejects(
-    () => safeGet("https://example.com/", { ...fast, timeoutMs: 30, retries: 0 }, { fetch: f.fetch, lookup }),
-    HttpTimeoutError,
-  );
+  // AbortSignal.timeout() uses an unref'd timer, and this fake fetch holds no socket, so on some Node
+  // versions (22) the event loop would look empty and the runner would cancel the test. A real fetch
+  // keeps a socket open. Hold the loop open here for the duration of the test.
+  const keepAlive = setTimeout(() => {}, 10_000);
+  try {
+    await assert.rejects(
+      () => safeGet("https://example.com/", { ...fast, timeoutMs: 30, retries: 0 }, { fetch: f.fetch, lookup }),
+      HttpTimeoutError,
+    );
+  } finally {
+    clearTimeout(keepAlive);
+  }
 });
 
 test("wraps network failures as HttpError after retries", async () => {
